@@ -1,0 +1,64 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  grid-template-rows: auto repeat(2, 361px);
+  grid-template-areas:
+    "profile profile profile"
+    "card card card"
+    "card card card";
+  margin: auto;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  max-width: 880px;
+}
+.profile__img {
+  grid-area: profile;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 30px;
+}
+.profile__info {
+  grid-area: profile;
+  min-width: 415px;
+  min-height: 77px;
+  display: flex;
+}
+.profile__name {
+  display: flex;
+  align-items: center;
+  width: 373px;
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 500;
+  font-size: 42px;
+  flex-grow: 1;
+}
+.profile__button-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  margin: 15px 0 0 18px;
+}
+
+.profile__button-add {
+  background-color: transparent;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  min-width: 150px;
+  min-height: 50px;
+  padding: 0;
+  margin-left: 165px;
+}

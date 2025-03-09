@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./pages/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=edit"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -17,7 +21,21 @@
       </header>
       <main class="main">
         <section class="profile">
-          <button class="profile__edit">Editar</button>
+          <img
+            src="./images/profile-img.jpg"
+            class="profile__img"
+            alt="Image of profile"
+          />
+          <div class="profile__info">
+            <div>
+              <div class="profile__name">Jacques Coustteau</div>
+              <div class="profile__description">Explorador</div>
+            </div>
+            <button class="profile__button profile__button-edit">
+              <span class="material-symbols-outlined"> edit </span>
+            </button>
+          </div>
+          <button class="profile__button profile__button-add">+</button>
         </section>
       </main>
       <footer class="footer">
