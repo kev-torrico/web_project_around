@@ -1,0 +1,8 @@
+.footer {
+  margin: 67px auto 60px 200px;
+  display: flex;
+  justify-content: flex-start;
+}
+.footer__copyrigth {
+  color: #545454;
+}
