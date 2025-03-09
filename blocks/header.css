@@ -1,0 +1,10 @@
+.header {
+  margin: 45px auto 40px;
+
+  width: 880px;
+  min-height: 74px;
+}
+.header__logo {
+  width: 173px;
+  height: 33px;
+}
