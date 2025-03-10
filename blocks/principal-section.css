@@ -1,17 +1,19 @@
 .main {
   display: grid;
-  grid-template-columns: repeat(3, 282px);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto repeat(2, 361px);
   grid-template-areas:
     "profile profile profile"
     "cards cards cards"
     "cards cards cards";
-  margin: auto;
+  margin: 0 auto;
+  width: 880px;
+  min-width: 880px;
 }
 .profile {
   display: flex;
   align-items: center;
-  max-width: 880px;
+  width: 100%;
 }
 .profile__img {
   grid-area: profile;
@@ -49,8 +51,10 @@
   align-items: center;
   width: 24px;
   height: 24px;
-
   margin: 15px 0 0 18px;
+}
+.profile__button-edit:hover {
+  opacity: 60%;
 }
 
 .profile__button-add {
@@ -62,12 +66,16 @@
   padding: 0;
   margin-left: 165px;
 }
+.profile__button-add:hover {
+  opacity: 60%;
+}
 .cards-container {
   display: grid;
   grid-area: cards;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 17px;
+  width: 100%;
   margin-top: 50px;
   border-style: none;
 }
@@ -108,4 +116,21 @@
   text-overflow: ellipsis;
   flex-grow: 1;
   max-width: 100%;
+}
+.card__like {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.card__like:hover {
+  opacity: 50%;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+.material-symbols-outlined-fill {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
 }

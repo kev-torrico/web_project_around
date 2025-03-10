@@ -30,3 +30,12 @@ h5 {
   background-color: black;
   flex-direction: column;
 }
+
+input {
+  all: unset;
+  color: black;
+  width: 100%;
+  border-bottom: 1px solid #c4c4c4;
+  padding-bottom: 13.26px;
+  margin-bottom: 29.74px;
+}
