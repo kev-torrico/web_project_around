@@ -1,7 +1,7 @@
 .main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto repeat(2, 361px);
+  grid-template-rows: auto repeat(2, 1fr);
   grid-template-areas:
     "profile profile profile"
     "cards cards cards"
@@ -9,7 +9,10 @@
   margin: 0 auto;
   width: 100%;
   max-width: 880px;
+  min-height: 743;
+  box-sizing: border-box;
 }
+
 @media screen and (max-width: 900px) {
   .main {
     grid-template-columns: repeat(2, 1fr);
@@ -19,9 +22,10 @@
       "cards cards";
   }
 }
+
 @media screen and (max-width: 450px) {
   .main {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
     grid-template-areas:
       "profile"
       "cards"

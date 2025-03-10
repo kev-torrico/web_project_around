@@ -7,6 +7,7 @@
   width: 100%;
   margin-top: 50px;
   border-style: none;
+  box-sizing: border-box;
 }
 .card {
   height: 100%;
@@ -34,7 +35,10 @@
   color: black;
   margin: auto;
   justify-content: space-between;
-  width: 246px;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  flex-grow: 1;
 }
 .card__title {
   font-weight: 900;
@@ -62,4 +66,23 @@
 }
 .material-symbols-outlined-fill {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+@media screen and (max-width: 900px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 0 20px;
+    max-width: 100%;
+  }
+  .card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+    gap: 20px;
+  }
 }

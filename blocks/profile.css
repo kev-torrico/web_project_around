@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
 }
 .profile__img {
   height: 120px;
@@ -53,12 +54,16 @@
   height: 50px;
   padding: 0;
   margin-left: 165px;
+  min-width: 40px;
 }
 .profile__button-add:hover {
   opacity: 60%;
 }
 
 @media screen and (max-width: 900px) {
+  .profile {
+    padding: 0 20px;
+  }
   .profile__button-add {
     display: flex;
     justify-content: center;
