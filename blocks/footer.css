@@ -3,9 +3,25 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  min-width: 880px;
+  width: 100%;
+  max-width: 880px;
+  height: 18px;
 }
 
 .footer__copyrigth {
   color: #545454;
+}
+
+@media screen and (max-width: 900px) {
+  .footer {
+    padding: 0 20px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .footer {
+    padding: 0 20px;
+    min-width: 282px;
+    height: 14px;
+    margin: 50px auto 36px;
+  }
 }
