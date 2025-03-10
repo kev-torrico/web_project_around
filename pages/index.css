@@ -2,6 +2,9 @@
 @import url(../vendor/fonts/inter.css);
 @import url(../blocks/page.css);
 @import url(../blocks/header.css);
-@import url(../blocks/principal-section.css);
+@import url(../blocks/main-section.css);
+@import url(../blocks/profile.css);
+@import url(../blocks/cards.css);
+
 @import url(../blocks/popup.css);
 @import url(../blocks/footer.css);
