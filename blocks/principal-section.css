@@ -7,8 +7,7 @@
     "cards cards cards"
     "cards cards cards";
   margin: 0 auto;
-  width: 880px;
-  min-width: 880px;
+  max-width: 880px;
 }
 .profile {
   display: flex;
@@ -25,8 +24,8 @@
 }
 .profile__info {
   grid-area: profile;
-  min-width: 415px;
-  min-height: 77px;
+  width: 415px;
+  height: 77px;
   display: flex;
 }
 .profile__name {
