@@ -6,10 +6,10 @@
     "profile profile profile"
     "cards cards cards"
     "cards cards cards";
-  margin: 0 auto;
+  margin: 0px auto;
   width: 100%;
   max-width: 880px;
-  min-height: 743;
+  min-height: 743px;
   box-sizing: border-box;
 }
 
