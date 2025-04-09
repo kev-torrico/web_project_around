@@ -8,13 +8,36 @@ const popupCardAddCloseButton = popupCardAdd.querySelector(".popup__close");
 
 let formElement = document.querySelector(".popup__input-form");
 
-let cardLike = document.querySelectorAll(".card__like");
+const cardsContainer = document.querySelector(".cards-container");
+const initialCards = [
+  {
+    name: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+  },
+  {
+    name: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+  },
+  {
+    name: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+  },
+];
 
-cardLike.forEach((like) => {
-  like.addEventListener("click", function () {
-    let likeButton = like.querySelector(".material-symbols-outlined");
-    likeButton.classList.toggle("material-symbols-outlined-fill");
-  });
+initialCards.forEach((card) => {
+  addCard(card.name, card.link);
 });
 
 editButton.addEventListener("click", function () {
@@ -36,6 +59,25 @@ popupCardAddCloseButton.addEventListener("click", function () {
 formElement.addEventListener("submit", function (evt) {
   handleProfileFormSubmit(evt);
 });
+// cardLike.forEach((like) => {
+//   like.addEventListener("click", function () {
+//     let likeButton = like.querySelector(".material-symbols-outlined");
+//     likeButton.classList.toggle("material-symbols-outlined-fill");
+//   });
+// });
+function addCard(titleValue, imgUrlValue) {
+  const cardTemplate = document.querySelector("#card-template").content;
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardLike = cardElement.querySelector(".card__like");
+  cardElement.querySelector(".card__img").src = imgUrlValue;
+  cardElement.querySelector(".card__img").alt = titleValue;
+  cardElement.querySelector(".card__title").textContent = titleValue;
+  cardLike.addEventListener("click", function (evt) {
+    const eventTarget = evt.target;
+    eventTarget.classList.toggle("material-symbols-outlined-fill");
+  });
+  cardsContainer.append(cardElement);
+}
 
 function openPopup(popup) {
   if (popup === popupProfile) {
