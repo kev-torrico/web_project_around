@@ -67,6 +67,7 @@ formElementCard.addEventListener("submit", function (evt) {
 function addCard(titleValue, imgUrlValue) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardDelete = cardElement.querySelector(".card__delete");
   const cardLike = cardElement.querySelector(".card__like");
   cardElement.querySelector(".card__img").src = imgUrlValue;
   cardElement.querySelector(".card__img").alt = titleValue;
@@ -75,6 +76,7 @@ function addCard(titleValue, imgUrlValue) {
     const eventTarget = evt.target;
     eventTarget.classList.toggle("material-symbols-outlined-fill");
   });
+  cardDelete.addEventListener("click", handlerCardDelete);
   cardsContainer.prepend(cardElement);
 }
 
@@ -128,4 +130,8 @@ function handleCardFormSubmit(evt) {
   imgUrlInput.value = "";
 
   closePopup(popupCardAdd);
+}
+
+function handlerCardDelete(evt) {
+  const eventTarget = evt.target;
 }
