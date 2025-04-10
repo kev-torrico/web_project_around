@@ -9,6 +9,9 @@ const popupCardAddCloseButton = popupCardAdd.querySelector(".popup__close");
 const formElementProfile = popupProfile.querySelector(".popup__input-form");
 const formElementCard = popupCardAdd.querySelector(".popup__input-form");
 
+const popupImg = document.querySelector(".popup_view-img");
+const popupImgCloseButton = popupImg.querySelector(".popup__close_img");
+
 const cardsContainer = document.querySelector(".cards-container");
 const initialCards = [
   {
@@ -57,6 +60,10 @@ popupCardAddCloseButton.addEventListener("click", function () {
   closePopup(popupCardAdd);
 });
 
+popupImgCloseButton.addEventListener("click", function () {
+  closePopup(popupImg);
+});
+
 formElementProfile.addEventListener("submit", function (evt) {
   handleProfileFormSubmit(evt);
 });
@@ -69,14 +76,18 @@ function addCard(titleValue, imgUrlValue) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardDelete = cardElement.querySelector(".card__delete");
   const cardLike = cardElement.querySelector(".card__like");
-  cardElement.querySelector(".card__img").src = imgUrlValue;
-  cardElement.querySelector(".card__img").alt = titleValue;
+  const cardImg = cardElement.querySelector(".card__img");
+  cardImg.src = imgUrlValue;
+  cardImg.alt = titleValue;
   cardElement.querySelector(".card__title").textContent = titleValue;
   cardLike.addEventListener("click", function (evt) {
     const eventTarget = evt.target;
     eventTarget.classList.toggle("material-symbols-outlined-fill");
   });
   cardDelete.addEventListener("click", handlerCardDelete);
+  cardImg.addEventListener("click", function () {
+    handlerCardImg(cardImg.src, cardImg.alt);
+  });
   cardsContainer.prepend(cardElement);
 }
 
@@ -139,4 +150,12 @@ function handleCardFormSubmit(evt) {
 function handlerCardDelete(evt) {
   const cardToDelete = evt.target.closest(".card");
   cardToDelete.remove();
+}
+function handlerCardImg(cardImage, cardName) {
+  const popupImgTag = popupImg.querySelector(".popup__img");
+  const popupImgeTitle = popupImg.querySelector(".popup__title_img");
+  popupImgTag.src = cardImage;
+  popupImgTag.alt = cardName;
+  popupImgeTitle.textContent = cardName;
+  openPopup(popupImg);
 }
