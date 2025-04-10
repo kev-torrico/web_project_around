@@ -9,6 +9,8 @@ Es una pagina web con diseño responsivo que tiene opciones para la edicion de p
 - **Nombre:** Kevin Cristhian Villca Torrico
 - **GitHub:** [kev-torrico](https://github.com/kev-torrico)
 - **Email:** [kevtorricov@gmail.com](mailto:kevtorricov@gmail.com)
+- **LinkedIn:** [Kevin Cristhian Villca Torrico
+](https://www.linkedin.com/in/kevin-cristhian-villca-torrico/)
 
 ## 🛠️ Tecnologías utilizadas
 
