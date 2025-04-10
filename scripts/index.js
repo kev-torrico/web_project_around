@@ -125,7 +125,11 @@ function handleCardFormSubmit(evt) {
   let titleValue = titleInput.value;
   let imgUrlValue = imgUrlInput.value;
 
+  let newObjectCard = { name: titleValue, link: imgUrlValue };
+
   addCard(titleValue, imgUrlValue);
+  initialCards.push(newObjectCard);
+
   titleInput.value = "";
   imgUrlInput.value = "";
 
@@ -133,5 +137,6 @@ function handleCardFormSubmit(evt) {
 }
 
 function handlerCardDelete(evt) {
-  const eventTarget = evt.target;
+  const cardToDelete = evt.target.closest(".card");
+  cardToDelete.remove();
 }
