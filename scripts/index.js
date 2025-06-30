@@ -227,3 +227,27 @@ const enableValidation = () => {
 };
 
 enableValidation();
+
+const overlayClosePopup = () => {
+  const popups = Array.from(document.querySelectorAll(".popup"));
+  popups.forEach((popup) => {
+    popup.addEventListener("click", (evt) => {
+      if (evt.target.classList.contains("popup__overlay")) {
+        closePopup(popup);
+      }
+    });
+  });
+};
+overlayClosePopup();
+
+const esqKeyClosePopup = () => {
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      const popupOpen = document.querySelector(".popup_show");
+      if (popupOpen) {
+        closePopup(popupOpen);
+      }
+    }
+  });
+};
+esqKeyClosePopup();
