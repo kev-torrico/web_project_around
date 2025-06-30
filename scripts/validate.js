@@ -14,9 +14,11 @@ const buttonNewMargin = (inputList, buttonElement, config) => {
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = true;
     buttonNewMargin(inputList, buttonElement, config);
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = false;
     buttonNewMargin(inputList, buttonElement, config);
   }
 };
@@ -63,9 +65,6 @@ const setEventListeners = (formElement, config) => {
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
     setEventListeners(formElement, config);
   });
 }

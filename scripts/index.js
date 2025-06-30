@@ -78,13 +78,10 @@ popupImgCloseButton.addEventListener("click", function () {
 
 formElementProfile.addEventListener("submit", function (evt) {
   console.log("Submit perfil ✅");
-  console.log("formElementProfile:", formElementProfile);
   handleProfileFormSubmit(evt);
 });
 formElementCard.addEventListener("submit", function (evt) {
   console.log("Submit tarjeta ✅");
-  console.log("formElementCard:", formElementCard);
-
   handleCardFormSubmit(evt);
 });
 
