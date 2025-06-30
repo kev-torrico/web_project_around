@@ -62,19 +62,29 @@
         <div class="popup__close">X</div>
         <div class="popup__content">
           <h2 class="popup__title">Editar perfil</h2>
-          <form class="popup__input-form">
+          <form class="popup__form">
             <input
               type="text"
               placeholder="Nombre"
               class="popup__input-form popup__input-form_name"
+              required
+              minlength="2"
+              maxlength="40"
+              id="name-input"
             />
+            <span class="form__input-error name-input-error"></span>
 
             <input
               type="text"
               placeholder="Acerca de mi"
               class="popup__input-form popup__input-form_job"
               name="job"
+              required
+              minlength="2"
+              maxlength="200"
+              id="job-input"
             />
+            <span class="form__input-error job-input-error"></span>
 
             <input type="submit" class="popup__save" value="Guardar" />
           </form>
@@ -85,17 +95,26 @@
         <div class="popup__close">X</div>
         <div class="popup__content">
           <h2 class="popup__title">New Place</h2>
-          <form class="popup__input-form">
+          <form class="popup__form">
             <input
               type="text"
               placeholder="Title"
               class="popup__input-form popup__input-form_title"
+              required
+              id="title-input"
+              minlength="2"
+              maxlength="30"
             />
+            <span class="form__input-error title-input-error"></span>
             <input
               type="text"
               placeholder="Image URL"
               class="popup__input-form popup__input-form_imgUrl"
+              required
+              id="url-input"
+              type="url"
             />
+            <span class="form__input-error url-input-error"></span>
             <input type="submit" class="popup__save" value="Guardar" />
           </form>
         </div>
