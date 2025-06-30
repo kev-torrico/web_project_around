@@ -77,9 +77,14 @@ popupImgCloseButton.addEventListener("click", function () {
 });
 
 formElementProfile.addEventListener("submit", function (evt) {
+  console.log("Submit perfil ✅");
+  console.log("formElementProfile:", formElementProfile);
   handleProfileFormSubmit(evt);
 });
 formElementCard.addEventListener("submit", function (evt) {
+  console.log("Submit tarjeta ✅");
+  console.log("formElementCard:", formElementCard);
+
   handleCardFormSubmit(evt);
 });
 
@@ -103,14 +108,19 @@ function addCard(titleValue, imgUrlValue) {
   cardsContainer.prepend(cardElement);
 }
 
-const handleOverlayClick = (evt, popup) => {
+const handleOverlayClick = (evt) => {
   if (evt.target.classList.contains("popup__overlay")) {
-    closePopup(popup);
+    closePopup(evt.currentTarget);
   }
 };
+const overlayClosePopup = () => {
+  document.querySelectorAll(".popup").forEach((popup) => {
+    popup.addEventListener("click", handleOverlayClick);
+  });
+};
+overlayClosePopup();
 
-const handleEsqKey = (evt) => {
-  console.log("Tecla presionada:", evt.key);
+const handleEscKey = (evt) => {
   if (evt.key === "Escape") {
     const popupOpen = document.querySelector(".popup_show");
     if (popupOpen) {
@@ -132,21 +142,14 @@ function openPopup(popup) {
   }
   popup.classList.add("popup_show");
   const form = popup.querySelector(".popup__form");
-
-  document.addEventListener("keydown", handleEsqKey);
-  popup.addEventListener("click", (evt) => {
-    handleOverlayClick(evt, popup);
-  });
+  document.addEventListener("keydown", handleEscKey);
   if (form) {
     resetValidation(form, validationConfig);
   }
 }
 function closePopup(popup) {
   popup.classList.remove("popup_show");
-  document.removeEventListener("keydown", handleEsqKey);
-  popup.removeEventListener("click", (evt) => {
-    handleOverlayClick(evt, popup);
-  });
+  document.removeEventListener("keydown", handleEscKey);
 }
 
 function handleProfileFormSubmit(evt) {
