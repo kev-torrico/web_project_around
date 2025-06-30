@@ -103,6 +103,22 @@ function addCard(titleValue, imgUrlValue) {
   cardsContainer.prepend(cardElement);
 }
 
+const handleOverlayClick = (evt, popup) => {
+  if (evt.target.classList.contains("popup__overlay")) {
+    closePopup(popup);
+  }
+};
+
+const handleEsqKey = (evt) => {
+  console.log("Tecla presionada:", evt.key);
+  if (evt.key === "Escape") {
+    const popupOpen = document.querySelector(".popup_show");
+    if (popupOpen) {
+      closePopup(popupOpen);
+    }
+  }
+};
+
 function openPopup(popup) {
   if (popup === popupProfile) {
     let nameInput = formElementProfile.querySelector(".popup__input-form_name");
@@ -116,12 +132,21 @@ function openPopup(popup) {
   }
   popup.classList.add("popup_show");
   const form = popup.querySelector(".popup__form");
+
+  document.addEventListener("keydown", handleEsqKey);
+  popup.addEventListener("click", (evt) => {
+    handleOverlayClick(evt, popup);
+  });
   if (form) {
     resetValidation(form, validationConfig);
   }
 }
 function closePopup(popup) {
   popup.classList.remove("popup_show");
+  document.removeEventListener("keydown", handleEsqKey);
+  popup.removeEventListener("click", (evt) => {
+    handleOverlayClick(evt, popup);
+  });
 }
 
 function handleProfileFormSubmit(evt) {
@@ -175,27 +200,3 @@ function handlerCardImg(cardImage, cardName) {
   popupImgeTitle.textContent = cardName;
   openPopup(popupImg);
 }
-
-const overlayClosePopup = () => {
-  const popups = Array.from(document.querySelectorAll(".popup"));
-  popups.forEach((popup) => {
-    popup.addEventListener("click", (evt) => {
-      if (evt.target.classList.contains("popup__overlay")) {
-        closePopup(popup);
-      }
-    });
-  });
-};
-overlayClosePopup();
-
-const esqKeyClosePopup = () => {
-  document.addEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
-      const popupOpen = document.querySelector(".popup_show");
-      if (popupOpen) {
-        closePopup(popupOpen);
-      }
-    }
-  });
-};
-esqKeyClosePopup();
