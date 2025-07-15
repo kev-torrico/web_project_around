@@ -52,8 +52,56 @@ const validationConfig = {
 
 enableValidation(validationConfig);
 
-initialCards.forEach((card) => {
-  addCard(card.name, card.link);
+class Card {
+  constructor(data, cardSelector) {
+    this._text = data.name;
+    this._image = data.link;
+    this._cardSelector = cardSelector;
+  }
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._cardSelector)
+      .content.querySelector(".card")
+      .cloneNode(true);
+    return cardElement;
+  }
+  generateCard() {
+    this._element = this._getTemplate();
+    this._setCardData();
+    this._setEventListeners();
+    return this._element;
+  }
+  _setCardData() {
+    this._element.querySelector(".card__img").src = this._image;
+    this._element.querySelector(".card__img").alt = this._text;
+    this._element.querySelector(".card__title").textContent = this._text;
+  }
+  _setEventListeners() {
+    this._element
+      .querySelector(".card__delete")
+      .addEventListener("click", (evt) => {
+        this._handleDeleteClick(evt);
+      });
+    this._element
+      .querySelector(".card__like")
+      .addEventListener("click", (evt) => {
+        this._handleLikeClick(evt);
+      });
+  }
+  _handleLikeClick(evt) {
+    const eventTarget = evt.target.closest("span");
+    eventTarget.classList.toggle("material-symbols-outlined-fill");
+  }
+  _handleDeleteClick(evt) {
+    const cardToDelete = evt.target.closest(".card");
+    cardToDelete.remove();
+  }
+}
+
+initialCards.forEach((data) => {
+  const card = new Card(data, "#card-template");
+  const cardElement = card.generateCard();
+  cardsContainer.prepend(cardElement);
 });
 
 editButton.addEventListener("click", function () {
@@ -84,26 +132,6 @@ formElementCard.addEventListener("submit", function (evt) {
   console.log("Submit tarjeta ✅");
   handleCardFormSubmit(evt);
 });
-
-function addCard(titleValue, imgUrlValue) {
-  const cardTemplate = document.querySelector("#card-template").content;
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardDelete = cardElement.querySelector(".card__delete");
-  const cardLike = cardElement.querySelector(".card__like");
-  const cardImg = cardElement.querySelector(".card__img");
-  cardImg.src = imgUrlValue;
-  cardImg.alt = titleValue;
-  cardElement.querySelector(".card__title").textContent = titleValue;
-  cardLike.addEventListener("click", function (evt) {
-    const eventTarget = evt.target;
-    eventTarget.classList.toggle("material-symbols-outlined-fill");
-  });
-  cardDelete.addEventListener("click", handlerCardDelete);
-  cardImg.addEventListener("click", function () {
-    handlerCardImg(cardImg.src, cardImg.alt);
-  });
-  cardsContainer.prepend(cardElement);
-}
 
 const handleOverlayClick = (evt) => {
   if (evt.target.classList.contains("popup__overlay")) {

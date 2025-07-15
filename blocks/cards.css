@@ -84,8 +84,9 @@
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 .material-symbols-outlined-fill {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+  font-variation-settings: "FILL" 1;
 }
+
 @media screen and (max-width: 900px) {
   .cards-container {
     grid-template-columns: repeat(2, 1fr);
