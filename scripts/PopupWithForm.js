@@ -12,7 +12,7 @@ export class PopupWithForm extends Popup {
     this._inputList.forEach((input) => {
       formValues[input.id] = input.value;
     });
-    return entryFields;
+    return formValues;
   }
   setEventListeners(closeButtonSelector) {
     this._form.addEventListener("submit", (evt) => {
