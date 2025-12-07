@@ -19,7 +19,7 @@ export class Popup {
   setEventListeners(closeButtonSelector) {
     //Se añade un evento tipo click al boton para cerrarlo
     const closeButton = this._popup.querySelector(closeButtonSelector);
-    closeButton.addEventListener("click", () => this.close);
+    closeButton.addEventListener("click", () => this.close());
 
     //Se añade un evento mousedown al overlay al hacer click en el
     this._popup.addEventListener("mousedown", (evt) => {
