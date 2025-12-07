@@ -1,69 +1,36 @@
-export const popupCardAdd = document.querySelector(".popup_add-card");
-export const popupImg = document.querySelector(".popup_view-img");
-
-const editButton = document.querySelector(".profile__button-edit");
-export const popupProfile = document.querySelector(".popup_profile");
-const popupProfileCloseButton = popupProfile.querySelector(".popup__close");
-
-const addCardButton = document.querySelector(".profile__button-add");
-const popupCardAddCloseButton = popupCardAdd.querySelector(".popup__close");
-const popupImgCloseButton = popupImg.querySelector(".popup__close_img");
-
-export const formElementProfile = popupProfile.querySelector(".popup__form");
-export const formElementCard = popupCardAdd.querySelector(".popup__form");
-
 export const formValidators = {};
+export const initialCards = [
+  {
+    name: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+  },
+  {
+    name: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+  },
+  {
+    name: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+  },
+];
 
-editButton.addEventListener("click", function () {
-  openPopup(popupProfile);
-});
-
-popupProfileCloseButton.addEventListener("click", function () {
-  closePopup(popupProfile);
-});
-
-addCardButton.addEventListener("click", function () {
-  openPopup(popupCardAdd);
-});
-
-popupCardAddCloseButton.addEventListener("click", function () {
-  closePopup(popupCardAdd);
-});
-
-popupImgCloseButton.addEventListener("click", function () {
-  closePopup(popupImg);
-});
-
-const handleEscKey = (evt) => {
-  if (evt.key === "Escape") {
-    const popupOpen = document.querySelector(".popup_show");
-    if (popupOpen) {
-      closePopup(popupOpen);
-    }
-  }
+export const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input-form",
+  submitButtonSelector: ".popup__save",
+  inactiveButtonClass: "popup__save_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
 };
-export function openPopup(popup) {
-  if (popup === popupProfile) {
-    let nameInput = formElementProfile.querySelector(".popup__input-form_name");
-    let jobInput = formElementProfile.querySelector(".popup__input-form_job");
-
-    const profileName = document.querySelector(".profile__name");
-    const profileJob = document.querySelector(".profile__job");
-
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-  }
-
-  const form = popup.querySelector(".popup__form");
-  if (form) {
-    const formKey = form.getAttribute("name") || form.className;
-    formValidators[formKey]?.resetValidation();
-  }
-  popup.classList.add("popup_show");
-  document.addEventListener("keydown", handleEscKey);
-}
-
-export function closePopup(popup) {
-  popup.classList.remove("popup_show");
-  document.removeEventListener("keydown", handleEscKey);
-}
