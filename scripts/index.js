@@ -19,11 +19,13 @@ formList.forEach((formElement) => {
 });
 
 // ******   Usuarios   *******
-// Informacion del usuario
+// Instanciamos un usuario
 const userInfo = new UserInfo({
   userName: ".profile__name",
   userJob: ".profile__job",
 });
+
+//Obtener informacion del usuario desde el servidor
 
 fetch("https://around-api.es.tripleten-services.com/v1/users/me", {
   method: "GET",
@@ -49,7 +51,7 @@ fetch("https://around-api.es.tripleten-services.com/v1/users/me", {
     console.log(err);
   });
 
-// Popup con la imagen
+// Instanciamos un Popup con la imagen y añadimos escuchadores de eventos
 const popupWithImage = new PopupWithImage(".popup_view-img");
 popupWithImage.setEventListeners(".popup__close_img");
 
@@ -58,10 +60,12 @@ const handleCardClick = (cardName, cardImage) => {
   popupWithImage.open(cardName, cardImage);
 };
 
+// **** Secion de las tarjetas ****
+
 // Contenedor de las tarjetas
 const cardsSection = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       const card = new Card(item, "#card-template", handleCardClick);
       const cardElement = card.generateCard();
@@ -71,9 +75,28 @@ const cardsSection = new Section(
   ".cards-container"
 );
 
-cardsSection.renderItems();
+// Obtencion de informacion acerca de las tarjetas.
+fetch("https://around-api.es.tripleten-services.com/v1/cards/", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/Json",
+    Authorization: "8e66e974-63b5-4fbf-a2ed-12a950290f95",
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Algo ha fallado ${res.status}`);
+  })
+  .then((cards) => {
+    cardsSection.setItems(cards);
+    cardsSection.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-console.log("Hola");
 // Popup de perfil
 
 const popupEditProfile = new PopupWithForm(".popup_profile", (formData) => {
