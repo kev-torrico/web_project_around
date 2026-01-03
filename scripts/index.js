@@ -4,7 +4,7 @@ import { UserInfo } from "./UserInfo.js";
 import { PopupWithForm } from "./PopupWithForm.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { FormValidator } from "./FormValidator.js";
-import { formValidators, initialCards, validationConfig } from "./utils.js";
+import { formValidators, validationConfig } from "./utils.js";
 
 // Validacion de formularios
 const formList = Array.from(
