@@ -18,11 +18,36 @@ formList.forEach((formElement) => {
   validator.enableValidation();
 });
 
+// ******   Usuarios   *******
 // Informacion del usuario
 const userInfo = new UserInfo({
   userName: ".profile__name",
   userJob: ".profile__job",
 });
+
+fetch("https://around-api.es.tripleten-services.com/v1/users/me", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    authorization: "8e66e974-63b5-4fbf-a2ed-12a950290f95",
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Algo ha fallado: ${res.status}`);
+  })
+  .then((result) => {
+    userInfo.setUserInfo({
+      name: result.name,
+      job: result.about,
+      profileImage: result.avatar,
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Popup con la imagen
 const popupWithImage = new PopupWithImage(".popup_view-img");
@@ -59,7 +84,7 @@ const popupEditProfile = new PopupWithForm(".popup_profile", (formData) => {
 });
 popupEditProfile.setEventListeners(".popup__close");
 
-// Abrir el biton de edit del popup de perfil
+// Abrir el boton de edit del popup de perfil
 document
   .querySelector(".profile__button-edit")
   .addEventListener("click", () => {
