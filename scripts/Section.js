@@ -32,8 +32,9 @@ export class Section {
         return Promise.reject(`Algo ha fallado ${res.status}`);
       })
       .then((cards) => {
-        this.setItems(cards);
-        this.renderItems(cards);
+        const orderedCards = cards.reverse();
+        this.setItems(orderedCards);
+        this.renderItems();
       })
       .catch((err) => {
         console.log(err);
