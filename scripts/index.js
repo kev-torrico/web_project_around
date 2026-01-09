@@ -74,9 +74,18 @@ const popupAddCard = new PopupWithForm(".popup_add-card", (formData) => {
     link: formData["url-input"],
   };
 
-  const newCard = new Card(data, "#card-template", handleCardClick);
+  const newCard = new Card(
+    data,
+    "#card-template",
+    handleCardClick,
+    apiConfig.baseUrl,
+    {
+      "Content-Type": apiConfig.headers.contentType,
+      Authorization: apiConfig.headers.token,
+    }
+  );
+  newCard.createCard();
   const cardElement = newCard.generateCard();
-
   cardsSection.addItem(cardElement);
 });
 
