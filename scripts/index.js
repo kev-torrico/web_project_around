@@ -6,10 +6,14 @@ import { PopupWithImage } from "./PopupWithImage.js";
 import { FormValidator } from "./FormValidator.js";
 import { formValidators, validationConfig } from "./Utils.js";
 import { apiConfig } from "../config/config.js";
+import { UsersApi } from "../api/UsersApi.js";
+
+// ****** Instanciacion de clases *****
+const usersApi = new UsersApi(apiConfig);
 
 // Validacion de formularios
 const formList = Array.from(
-  document.querySelectorAll(validationConfig.formSelector)
+  document.querySelectorAll(validationConfig.formSelector),
 );
 
 formList.forEach((formElement) => {
@@ -24,15 +28,21 @@ formList.forEach((formElement) => {
 export const userInfo = new UserInfo({
   userName: ".profile__name",
   userJob: ".profile__job",
-  baseUrl: apiConfig.baseUrl,
-  headers: {
-    "Content-Type": apiConfig.headers.contentType,
-    Authorization: apiConfig.headers.token,
-  },
 });
 
 //Obtener informacion del usuario desde el servidor
-userInfo.getUserInfo();
+usersApi
+  .fetchUserInfo()
+  .then((result) => {
+    userInfo.setUserInfo({
+      name: result.name,
+      job: result.about,
+      profileImage: result.avatar,
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Instanciamos un Popup con la imagen y añadimos escuchadores de eventos
 const popupWithImage = new PopupWithImage(".popup_view-img");
@@ -60,7 +70,7 @@ export const cardsSection = new Section(
       Authorization: apiConfig.headers.token,
     },
   },
-  ".cards-container"
+  ".cards-container",
 );
 
 // Obtencion de informacion acerca de las tarjetas.
@@ -82,7 +92,7 @@ const popupAddCard = new PopupWithForm(".popup_add-card", (formData) => {
     {
       "Content-Type": apiConfig.headers.contentType,
       Authorization: apiConfig.headers.token,
-    }
+    },
   );
   newCard.createCard();
   const cardElement = newCard.generateCard();
@@ -97,13 +107,22 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
   popupAddCard.open();
 });
 
+// Popup para eliminar el card
+
 // **** Edicion de usuarios y popup del perfil****
 // Popup de perfil
 const popupEditProfile = new PopupWithForm(".popup_profile", (formData) => {
-  userInfo.updateProfile({
-    name: formData["name-input"],
-    about: formData["job-input"],
-  });
+  usersApi
+    .updateProfile({
+      name: formData["name-input"],
+      about: formData["job-input"],
+    })
+    .then((result) => {
+      userInfo.setUserInfo({
+        name: result.name,
+        job: result.about,
+      });
+    });
 });
 popupEditProfile.setEventListeners(".popup__close");
 
