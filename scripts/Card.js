@@ -1,12 +1,10 @@
 export class Card {
-  constructor(data, cardTemplate, handleCardClick, baseUrl, headers) {
+  constructor(data, cardTemplate, handleCardClick) {
     this._data = data;
     this._text = data.name;
     this._image = data.link;
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
-    this._baseUrl = baseUrl;
-    this._headers = headers;
   }
   _getTemplate() {
     const cardElement = document
@@ -49,21 +47,5 @@ export class Card {
   _handleDeleteClick(evt) {
     const cardToDelete = evt.target.closest(".card");
     cardToDelete.remove();
-  }
-  createCard() {
-    this._request(`${this._baseUrl}/cards/`, {
-      method: "POST",
-      headers: this._headers,
-      body: JSON.stringify(this._data),
-    });
-    return console.log("card creada");
-  }
-  _request(url, options) {
-    return fetch(url, options).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Algo ha fallado: ${res.status}`);
-    });
   }
 }

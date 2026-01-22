@@ -6,10 +6,12 @@ import { PopupWithImage } from "./PopupWithImage.js";
 import { FormValidator } from "./FormValidator.js";
 import { formValidators, validationConfig } from "./Utils.js";
 import { apiConfig } from "../config/config.js";
-import { UsersApi } from "../api/UsersApi.js";
+import { UserApi } from "../api/UserApi.js";
+import { CardApi } from "../api/CardApi.js";
 
 // ****** Instanciacion de clases *****
-const usersApi = new UsersApi(apiConfig);
+const userApi = new UserApi(apiConfig);
+const cardApi = new CardApi(apiConfig);
 
 // Validacion de formularios
 const formList = Array.from(
@@ -31,7 +33,7 @@ export const userInfo = new UserInfo({
 });
 
 //Obtener informacion del usuario desde el servidor
-usersApi
+userApi
   .fetchUserInfo()
   .then((result) => {
     userInfo.setUserInfo({
@@ -64,17 +66,21 @@ export const cardsSection = new Section(
       const cardElement = card.generateCard();
       cardsSection.addItem(cardElement);
     },
-    baseUrl: apiConfig.baseUrl,
-    headers: {
-      "Content-Type": apiConfig.headers.contentType,
-      Authorization: apiConfig.headers.token,
-    },
   },
   ".cards-container",
 );
 
 // Obtencion de informacion acerca de las tarjetas.
-cardsSection.getItems();
+cardApi
+  .fetchCards()
+  .then((cards) => {
+    const orderedCards = cards.reverse();
+    cardsSection.setItems(orderedCards);
+    cardsSection.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Popup para añadir el card
 
@@ -84,17 +90,8 @@ const popupAddCard = new PopupWithForm(".popup_add-card", (formData) => {
     link: formData["url-input"],
   };
 
-  const newCard = new Card(
-    data,
-    "#card-template",
-    handleCardClick,
-    apiConfig.baseUrl,
-    {
-      "Content-Type": apiConfig.headers.contentType,
-      Authorization: apiConfig.headers.token,
-    },
-  );
-  newCard.createCard();
+  const newCard = new Card(data, "#card-template", handleCardClick);
+  cardApi.createCard(data);
   const cardElement = newCard.generateCard();
   cardsSection.addItem(cardElement);
 });
@@ -112,7 +109,7 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
 // **** Edicion de usuarios y popup del perfil****
 // Popup de perfil
 const popupEditProfile = new PopupWithForm(".popup_profile", (formData) => {
-  usersApi
+  userApi
     .updateProfile({
       name: formData["name-input"],
       about: formData["job-input"],
