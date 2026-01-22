@@ -1,10 +1,8 @@
 export class Section {
-  constructor({ items, renderer, baseUrl, headers }, containerSelector) {
+  constructor({ items, renderer }, containerSelector) {
     this._initialArray = items;
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
-    this._baseUrl = baseUrl;
-    this._headers = headers;
   }
   renderItems() {
     this._initialArray.forEach((item) => {
@@ -16,28 +14,5 @@ export class Section {
   }
   setItems(items) {
     this._initialArray = items;
-  }
-  getItems() {
-    this._request(`${this._baseUrl}/cards/`, {
-      method: "GET",
-      headers: this._headers,
-    });
-  }
-  _request(url, options) {
-    return fetch(url, options)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Algo ha fallado ${res.status}`);
-      })
-      .then((cards) => {
-        const orderedCards = cards.reverse();
-        this.setItems(orderedCards);
-        this.renderItems();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 }

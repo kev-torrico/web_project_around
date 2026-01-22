@@ -1,6 +1,6 @@
 import { Api } from "./Api.js";
 
-export class UsersApi extends Api {
+export class UserApi extends Api {
   constructor(config) {
     super(config);
   }
