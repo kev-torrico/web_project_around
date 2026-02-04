@@ -8,6 +8,7 @@ import { formValidators, validationConfig } from "./Utils.js";
 import { apiConfig } from "../config/config.js";
 import { UserApi } from "../api/UserApi.js";
 import { CardApi } from "../api/CardApi.js";
+import { PopupWithConfirmation } from "./PopupWithConfirmation.js";
 
 // ****** Instanciacion de clases *****
 const userApi = new UserApi(apiConfig);
@@ -46,6 +47,28 @@ userApi
     console.log(err);
   });
 
+// Instanciamos un Popup con la confirmacion y añadimos escuchadores de eventos
+const popupDeleteCard = new PopupWithConfirmation(".popup_delete-card");
+popupDeleteCard.setEventListeners(".popup__close");
+//Card a Eliminar
+let cardToDelete = null;
+//Handler de eliminar el card
+const handleCardDeleteClick = (cardInstance) => {
+  cardToDelete = cardInstance;
+  popupDeleteCard.setSubmitAction(() => {
+    cardApi
+      .deleteCard(cardToDelete.getId())
+      .then(() => {
+        cardToDelete.removeCard();
+        cardToDelete = null;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  popupDeleteCard.open();
+};
+
 // Instanciamos un Popup con la imagen y añadimos escuchadores de eventos
 const popupWithImage = new PopupWithImage(".popup_view-img");
 popupWithImage.setEventListeners(".popup__close_img");
@@ -62,7 +85,13 @@ export const cardsSection = new Section(
   {
     items: [],
     renderer: (item) => {
-      const card = new Card(item, "#card-template", handleCardClick);
+      const card = new Card(
+        item,
+        "#card-template",
+        handleCardClick,
+        handleCardDeleteClick,
+        cardApi,
+      );
       const cardElement = card.generateCard();
       cardsSection.addItem(cardElement);
     },
@@ -77,6 +106,7 @@ cardApi
     const orderedCards = cards.reverse();
     cardsSection.setItems(orderedCards);
     cardsSection.renderItems();
+    console.log(cardsSection._initialArray);
   })
   .catch((err) => {
     console.log(err);
@@ -103,8 +133,6 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
   popupAddCard.close();
   popupAddCard.open();
 });
-
-// Popup para eliminar el card
 
 // **** Edicion de usuarios y popup del perfil****
 // Popup de perfil
