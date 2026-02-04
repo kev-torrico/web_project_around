@@ -23,4 +23,16 @@ export class UserApi extends Api {
       body: JSON.stringify(data),
     });
   }
+  updateAvatar(avatarUrl) {
+    return this._request("users/me/avatar", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": this._headers.contentType,
+        Authorization: this._headers.token,
+      },
+      body: JSON.stringify({
+        avatar: avatarUrl,
+      }),
+    });
+  }
 }
