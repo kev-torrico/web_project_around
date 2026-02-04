@@ -4,7 +4,12 @@ import { UserInfo } from "./UserInfo.js";
 import { PopupWithForm } from "./PopupWithForm.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { FormValidator } from "./FormValidator.js";
-import { formValidators, validationConfig } from "./Utils.js";
+import {
+  formValidators,
+  validationConfig,
+  avatarWrapper,
+  profileImage,
+} from "./Utils.js";
 import { apiConfig } from "../config/config.js";
 import { UserApi } from "../api/UserApi.js";
 import { CardApi } from "../api/CardApi.js";
@@ -13,7 +18,28 @@ import { PopupWithConfirmation } from "./PopupWithConfirmation.js";
 // ****** Instanciacion de clases *****
 const userApi = new UserApi(apiConfig);
 const cardApi = new CardApi(apiConfig);
-
+const popupEditAvatar = new PopupWithForm(
+  ".popup_profile-photo",
+  (formData) => {
+    popupEditAvatar.renderLoading(true);
+    userApi
+      .updateAvatar(formData["url-input"])
+      .then((userData) => {
+        profileImage.src = userData.avatar;
+      })
+      .catch((err) => {
+        console.error("Error al actualizar avatar:", err);
+      })
+      .finally(() => {
+        popupEditAvatar.renderLoading(false);
+      });
+  },
+);
+popupEditAvatar.setEventListeners(".popup__close");
+avatarWrapper.addEventListener("click", () => {
+  formValidators["avatarForm"].resetValidation();
+  popupEditAvatar.open();
+});
 // Validacion de formularios
 const formList = Array.from(
   document.querySelectorAll(validationConfig.formSelector),
@@ -137,6 +163,7 @@ document.querySelector(".profile__button-add").addEventListener("click", () => {
 // **** Edicion de usuarios y popup del perfil****
 // Popup de perfil
 const popupEditProfile = new PopupWithForm(".popup_profile", (formData) => {
+  popupEditProfile.renderLoading(true);
   userApi
     .updateProfile({
       name: formData["name-input"],
@@ -147,6 +174,10 @@ const popupEditProfile = new PopupWithForm(".popup_profile", (formData) => {
         name: result.name,
         job: result.about,
       });
+    })
+    .catch(console.error)
+    .finally(() => {
+      popupEditProfile.renderLoading(false);
     });
 });
 popupEditProfile.setEventListeners(".popup__close");
