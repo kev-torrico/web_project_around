@@ -23,4 +23,31 @@ export class CardApi extends Api {
       body: JSON.stringify(cardData),
     });
   }
+  deleteCard(cardId) {
+    return this._request(`cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": this._headers.contentType,
+        Authorization: this._headers.token,
+      },
+    });
+  }
+  likeCard(cardId) {
+    return this._request(`cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": this._headers.contentType,
+        Authorization: this._headers.token,
+      },
+    });
+  }
+  unLikeCard(cardId) {
+    return this._request(`cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": this._headers.contentType,
+        Authorization: this._headers.token,
+      },
+    });
+  }
 }
