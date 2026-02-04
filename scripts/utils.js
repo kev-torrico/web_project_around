@@ -1,4 +1,6 @@
 export const formValidators = {};
+export const avatarWrapper = document.querySelector(".profile__img-wrapper");
+export const profileImage = document.querySelector(".profile__img");
 
 export const validationConfig = {
   formSelector: ".popup__form",
