@@ -161,6 +161,22 @@
   margin: 0;
 }
 
+.popup_profile-photo .popup__content {
+  padding: 34px 36px 36px;
+  min-height: 0;
+}
+.popup_profile-photo .popup__title {
+  margin-bottom: 54px;
+  line-height: normal;
+}
+.popup_profile-photo .popup__save {
+  margin: 0;
+}
+.popup_profile-photo .popup__input-form_imgUrl {
+  padding-bottom: 0;
+  margin-bottom: 48px;
+}
+
 @media screen and (max-width: 900px) {
   .popup__content {
     width: 100%;
