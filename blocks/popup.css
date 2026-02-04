@@ -149,6 +149,18 @@
   margin-bottom: 9px;
 }
 
+.popup_delete-card .popup__content {
+  padding: 34px 36px 36px;
+  min-height: 0;
+}
+.popup_delete-card .popup__title {
+  margin-bottom: 38px;
+  line-height: normal;
+}
+.popup_delete-card .popup__save {
+  margin: 0;
+}
+
 @media screen and (max-width: 900px) {
   .popup__content {
     width: 100%;
