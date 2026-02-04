@@ -25,11 +25,17 @@
       </header>
       <main class="main">
         <section class="profile">
-          <img
-            src="./images/profile-img.jpg"
-            class="profile__img"
-            alt="Image of profile"
-          />
+          <div class="profile__img-wrapper">
+            <img
+              src="./images/profile-img.jpg"
+              alt="Profile Image"
+              class="profile__img"
+            />
+
+            <div class="profile__img-overlay">
+              <span class="material-symbols-outlined"> edit </span>
+            </div>
+          </div>
           <div class="profile__info">
             <div>
               <div class="profile__name"></div>
@@ -135,6 +141,25 @@
         <div class="popup__content">
           <h2 class="popup__title">¿Estás seguro/a?</h2>
           <button class="popup__save">Sí</button>
+        </div>
+      </div>
+      <div class="popup popup_profile-photo">
+        <div class="popup__overlay"></div>
+        <div class="popup__close">X</div>
+        <div class="popup__content">
+          <h2 class="popup__title">Cambiar foto de perfil</h2>
+          <form class="popup__form" name="avatarForm">
+            <input
+              type="url"
+              placeholder="Link de nueva foto de perfil"
+              class="popup__input-form popup__input-form_imgUrl"
+              required
+              id="url-input"
+            />
+            <span class="url-input-error popup__input-error"></span>
+
+            <input type="submit" class="popup__save" value="Guardar" />
+          </form>
         </div>
       </div>
     </div>
